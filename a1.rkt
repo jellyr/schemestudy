@@ -277,3 +277,69 @@
     ))
 
 
+#|
+
+15. Define subtraction using natural recursion. Your subtraction function, minus, need only take nonnegative inputs where the result will be nonnegative.
+> (minus 5 3)
+2
+> (minus 100 50)
+50
+定义一个过程,要求
+输入参数1: 非负数 x y
+输出: x - y的值   使用递归实现
+|#
+
+
+(define (minus x y)
+  (cond
+    ((< x 0) #f)
+    ((< y 0) #f)
+    ((= y 0) x)
+    ((> y 0) (minus (sub1 x) (sub1 y)))))
+
+
+#|
+16. Define division using natural recursion. Your division function, div, need only work when the second number evenly divides the first. Division by zero is of course bad data.
+> (div 25 5)
+5
+> (div 36 6)
+6
+
+定义一个过程,要求 
+输入参数1: 非负数 x y
+输出: x - y的值   使用递归实现
+|#
+
+(define (div x y)
+  (cond
+    ((< (* x y) 0)  (exit "only work when the second number evenly divides the first and x y must positive. "))
+    ((= y 0)        (exit "only work when the second number evenly divides the first and x y must positive. ") )
+    ((= x 0 )       0)
+    (else           (+ 1 (div (- x y) y)))))
+    
+
+
+#|
+17. Define a function append-map that, similar to map, takes both a procedure p of one argument a list of inputs ls and applies p to each of the elements of ls. Here, though, we mandate that the result of p on each element of ls is a list, and we append together the intermediate results. Do not use Racket's built-in append-map in your definition.
+> (append-map countdown (countdown 5))
+(5 4 3 2 1 0 4 3 2 1 0 3 2 1 0 2 1 0 1 0 0)
+
+定义一个过程,要求 
+输入参数1: 函数f
+输入参数2: 列表l。
+输出:  函数f, 对某个列表(第二个参数)中的每一项应用后都会产生一个列表。合并这些列表。
+|#
+
+(define (append-map f l)
+  (cond
+    ((null? l) `())
+    (else      (append (f (car l)) (append-map f (cdr l))))))
+
+
+
+
+
+
+
+
+
